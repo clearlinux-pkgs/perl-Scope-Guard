@@ -4,7 +4,7 @@
 #
 Name     : perl-Scope-Guard
 Version  : 0.21
-Release  : 1
+Release  : 2
 URL      : http://search.cpan.org/CPAN/authors/id/C/CH/CHOCOLATE/Scope-Guard-0.21.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/C/CH/CHOCOLATE/Scope-Guard-0.21.tar.gz
 Summary  : 'lexically-scoped resource management'
