@@ -4,12 +4,13 @@
 #
 Name     : perl-Scope-Guard
 Version  : 0.21
-Release  : 12
+Release  : 13
 URL      : https://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Scope-Guard-0.21.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Scope-Guard-0.21.tar.gz
 Summary  : 'lexically-scoped resource management'
 Group    : Development/Tools
 License  : Artistic-1.0-Perl
+Requires: perl-Scope-Guard-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -26,19 +27,30 @@ collector.
 Summary: dev components for the perl-Scope-Guard package.
 Group: Development
 Provides: perl-Scope-Guard-devel = %{version}-%{release}
+Requires: perl-Scope-Guard = %{version}-%{release}
 
 %description dev
 dev components for the perl-Scope-Guard package.
 
 
+%package perl
+Summary: perl components for the perl-Scope-Guard package.
+Group: Default
+Requires: perl-Scope-Guard = %{version}-%{release}
+
+%description perl
+perl components for the perl-Scope-Guard package.
+
+
 %prep
 %setup -q -n Scope-Guard-0.21
+cd %{_builddir}/Scope-Guard-0.21
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -48,7 +60,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -68,8 +80,11 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Scope/Guard.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Scope::Guard.3
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Scope/Guard.pm
